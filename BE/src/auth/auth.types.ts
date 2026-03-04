@@ -16,3 +16,9 @@ export interface UserType  {
     password: string;
     role: string;
 }
+
+export interface payloadType {
+    _id : string;
+    name: string;
+    role: string;
+}

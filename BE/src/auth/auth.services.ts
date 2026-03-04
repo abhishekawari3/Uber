@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 import { User } from './auth.model.js';
 import bcrypt from 'bcrypt';
 import type { Request, Response, NextFunction } from 'express';
-import type { UserType } from './auth.types.js';
+import type { LoginDTO, SignupDTO, UserType } from './auth.types.js';
 
 export const signupService = async (
     req: Request,
@@ -11,7 +11,7 @@ export const signupService = async (
 ) => {
     try {
 
-        const { email, password, name } = req.body;
+        const { email, password, name }: SignupDTO = req.body;
         const existing_User: UserType | null = await User.findOne({ email });
 
         if (existing_User) {
@@ -44,7 +44,7 @@ export const loginService = async (
     next: NextFunction
 ) => {
     try {
-        const { email, password } = req.body;
+        const { email, password }: LoginDTO = req.body;
 
         const user: UserType | null = await User.findOne({ email });
 
