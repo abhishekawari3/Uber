@@ -1,6 +1,10 @@
 import mongoose,{ Schema } from 'mongoose';
 
 const userSchema : mongoose.Schema = new mongoose.Schema({
+    _id: {
+        type: mongoose.Schema.Types.ObjectId,
+        auto: true,
+    },
     name:{
         type: String,
         required: true,
