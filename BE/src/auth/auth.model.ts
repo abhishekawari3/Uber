@@ -1,29 +1,35 @@
-import mongoose,{ Schema } from 'mongoose';
+import mongoose, { Schema, Document, Model } from "mongoose";
+import type { IUser } from './auth.types.js';
 
-const userSchema : mongoose.Schema = new mongoose.Schema({
-    _id: {
-        type: mongoose.Schema.Types.ObjectId,
-        auto: true,
+const userSchema: Schema<IUser> = new Schema(
+  {
+    name: {
+      type: String,
+      required: true
     },
-    name:{
-        type: String,
-        required: true,
+
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+      lowercase: true
     },
-    email:{
-        type: String,
-        required: true,
-        unique: true,
-        trim:true,
+
+    password: {
+      type: String,
+      required: true
     },
-    password:{
-        type: String,
-        required: true,
-    },
-    role:{
-        type: String,
-        enum: ['rider', 'driver', 'admin'],
-        default: 'rider',
+
+    role: {
+      type: String,
+      enum: ["rider", "driver", "admin"],
+      default: "rider"
     }
-})
+  },
+  {
+    timestamps: true
+  }
+)
 
-export const User : mongoose.Model<any> = mongoose.model('User',userSchema);
+export const User: Model<IUser> = mongoose.model<IUser>("User", userSchema)

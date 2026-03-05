@@ -23,7 +23,7 @@ export const signupService = async (
 
     return {
         user: {
-            _id: user._id,
+            _id: user._id.toString(),
         },
     };
 };

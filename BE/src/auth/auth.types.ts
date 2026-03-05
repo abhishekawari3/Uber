@@ -9,12 +9,11 @@ export interface LoginDTO {
     password: string;
 }
 
-export interface UserType  {
-    _id: string;
-    name: string;
-    email: string;
-    password: string;
-    role: string;
+export interface IUser extends Document {
+  name: string
+  email: string
+  password: string
+  role: "rider" | "driver" | "admin"
 }
 
 export interface payloadType {
