@@ -22,3 +22,13 @@ export interface payloadType {
     name: string;
     role: string;
 }
+
+export interface SignupResult {
+    user: {
+        _id: string;
+    };
+}
+
+export interface LoginResult {
+    token: string;
+}
