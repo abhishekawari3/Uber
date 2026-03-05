@@ -1,6 +1,5 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
-import type{ IDriver } from './driver.types.js';
-
+import type { IDriver } from "./driver.types.js";
 
 const DriverSchema: Schema<IDriver> = new Schema({
   user_id: {
