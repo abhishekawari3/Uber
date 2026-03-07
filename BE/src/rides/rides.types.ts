@@ -22,3 +22,9 @@ export interface IRide extends Document {
     | "cancelled";
   created_at: Date;
 };
+
+export interface fareResult {
+  base_Fare: number;
+  surge_multiplier: number;
+  total_fare: number;
+}
