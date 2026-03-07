@@ -9,7 +9,8 @@ app.use(express.json());
 
 app.use(errorHandlerMiddleware);
 
-app.use('/api/v1/auth', require('./routes/authRoute.js'))
+app.use('/api/v1/auth', require('./routes/authRoute.js'));
+app.use('/api/v1/rides', require('./rides/rides.routes.js'));
 
 
 
