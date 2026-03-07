@@ -27,7 +27,7 @@ export const calculateFare = (
     );
 
     return {
-        base_Fare: base_fare,
+        base_fare,
         surge_multiplier: surgeMultiplier,
         total_fare,
     };

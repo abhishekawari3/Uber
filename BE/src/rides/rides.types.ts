@@ -24,7 +24,20 @@ export interface IRide extends Document {
 };
 
 export interface fareResult {
-  base_Fare: number;
+  base_fare: number;
   surge_multiplier: number;
   total_fare: number;
 }
+
+
+declare global {
+  namespace Express {
+    interface Request {
+      user?: {
+        _id: mongoose.Types.ObjectId;
+      };
+    }
+  }
+}
+
+export {};

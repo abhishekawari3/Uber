@@ -1,5 +1,6 @@
 import { Router } from 'express';
-import type { NextFunction, Request, Response } from 'express';
+import  type{ NextFunction, Request, Response } from 'express';
+import { requestRide } from './rides.controller.js';
 
 const router: Router = Router();
 
@@ -8,6 +9,12 @@ router.post('/request', (
     res: Response, 
     next: NextFunction
 ) => {
-    const {}
-    requestRideController()
+    
+    requestRide(req, res, next).catch(next);
 });
+
+router.get('/', (req: Request, res: Response, next:NextFunction) => {
+   
+})
+
+export default router;
