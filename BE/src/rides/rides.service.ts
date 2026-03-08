@@ -8,22 +8,9 @@ import Ride from "./rides.model.js";
 import { Driver } from "../driver/driver.model.js";
 import type{ IGeoPoint, IRide } from './rides.types.js';
 import type{ IDriver } from './../driver/driver.types.js';
+import type { RideResult, RideRequestData } from './rides.types.js';
+
 // services/ride.service.ts
-
-
-// ─── Interfaces ─────────────────────────────────────────
-interface RideRequestData {
-  rider_id: Types.ObjectId;
-  pickup_location: IGeoPoint;
-  drop_location: IGeoPoint;
-  vehicle_type?: string;
-}
-
-interface RideResult {
-  ride: IRide;
-  driver: IDriver;
-  nearby_drivers_count: number;
-}
 
 // ─── Constants ──────────────────────────────────────────
 const SEARCH_RADIUS_KM = 5;
