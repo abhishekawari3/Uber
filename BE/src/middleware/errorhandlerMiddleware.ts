@@ -16,7 +16,6 @@ export const errorHandlerMiddleware: ErrorRequestHandler = (
         message,
     });
 };
-// utils/AppError.ts
 
 export class AppError extends Error {
   public readonly statusCode: number;

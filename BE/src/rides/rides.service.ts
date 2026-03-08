@@ -8,7 +8,10 @@ import Ride from "./rides.model.js";
 import { Driver } from "../driver/driver.model.js";
 import type{ IGeoPoint, IRide } from './rides.types.js';
 import type{ IDriver } from './../driver/driver.types.js';
+// services/ride.service.ts
 
+
+// ─── Interfaces ─────────────────────────────────────────
 interface RideRequestData {
   rider_id: Types.ObjectId;
   pickup_location: IGeoPoint;
@@ -22,6 +25,7 @@ interface RideResult {
   nearby_drivers_count: number;
 }
 
+// ─── Constants ──────────────────────────────────────────
 const SEARCH_RADIUS_KM = 5;
 const MAX_DRIVERS = 10;
 const VALID_VEHICLE_TYPES = ["Go", "X", "Xl", "Black", "BlackXl"];
@@ -74,15 +78,13 @@ const checkExistingRide = async (riderId: Types.ObjectId): Promise<void> => {
 };
 
 /**
- * Find nearest available driver using aggregation
+ * Find nearest available driver using geo aggregation
  */
-// services/ride.service.ts
-
 const findNearestDriver = async (
   pickupLocation: IGeoPoint,
   vehicleType: string
 ): Promise<{ driver: IDriver; count: number }> => {
-
+  // Try exact vehicle type match first
   let drivers = await Driver.aggregate<IDriver>([
     {
       $geoNear: {
@@ -104,6 +106,7 @@ const findNearestDriver = async (
 
   let count = drivers.length;
 
+  // Fallback: any available vehicle type
   if (!drivers.length) {
     drivers = await Driver.aggregate<IDriver>([
       {
@@ -123,8 +126,7 @@ const findNearestDriver = async (
     count = drivers.length;
   }
 
-  // ✅ FIX: Guard on drivers[0] directly
-  //    TypeScript now narrows it from IDriver | undefined → IDriver
+  // Extract first driver and guard against undefined
   const closestDriver = drivers[0];
 
   if (!closestDriver) {
@@ -152,7 +154,7 @@ export const createRideRequest = async (
   // 1. Validate
   validateRequest(pickup_location, drop_location, vehicle_type);
 
-  // 2. Check existing
+  // 2. Check existing active ride
   await checkExistingRide(rider_id);
 
   // 3. Calculate distance & fare
@@ -164,7 +166,7 @@ export const createRideRequest = async (
     surgeMultiplier
   );
 
-  // 4. Find driver
+  // 4. Find nearest driver
   const { driver, count } = await findNearestDriver(
     pickup_location,
     vehicle_type
@@ -195,6 +197,7 @@ export const createRideRequest = async (
     is_available: false,
   });
 
+  // 7. Return result
   return {
     ride,
     driver,
