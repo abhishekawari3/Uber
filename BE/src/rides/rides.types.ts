@@ -1,4 +1,6 @@
 import mongoose, { Document } from "mongoose";
+import type { IDriver } from './../driver/driver.types.js';
+
 
 export interface IGeoPoint {
   type: "Point";
@@ -29,6 +31,18 @@ export interface fareResult {
   total_fare: number;
 }
 
+export interface RideRequestData {
+  rider_id: mongoose.Types.ObjectId;
+  pickup_location: IGeoPoint;
+  drop_location: IGeoPoint;
+  vehicle_type?: string;
+}
+
+export interface RideResult {
+  ride: IRide;
+  driver: IDriver;
+  nearby_drivers_count: number;
+}
 
 declare global {
   namespace Express {
