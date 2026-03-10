@@ -8,5 +8,5 @@ router.post('/status',(
     res:Response,
     next:NextFunction
 )=>{
-    const isAvailbility 
+    
 })
