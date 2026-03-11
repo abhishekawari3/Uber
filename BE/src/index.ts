@@ -11,6 +11,7 @@ app.use(errorHandlerMiddleware);
 
 app.use('/api/v1/auth', require('./routes/authRoute.js'));
 app.use('/api/v1/rides', require('./rides/rides.routes.js'));
+app.use('/api/v1/users', require('./driver/driver.routes.js'))
 
 
 
